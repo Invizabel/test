@@ -4,7 +4,7 @@ import threading
 
 def server():
     server_socket = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-    server_socket.bind(("14:75:5B:90:70:9E", 5))
+    server_socket.bind(("temp", 5))
     server_socket.listen(1)
     while True:
         client_socket, client_address = server_socket.accept()
@@ -18,7 +18,7 @@ def server():
 
 def client():
     client_socket = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-    client_socket.connect(("14:75:5B:90:70:9E", 5))
+    client_socket.connect(("temp", 5))
     ssl_context = ssl.create_default_context(ssl.TLS_CLIENT)
     ssl_socket = ssl_context.wrap_socket(client_socket, server_hostname=server_mac_address)
     data_to_send = "Hello, Bluetooth!"
